@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .dashboard-section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .dashboard-section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dashboard-section:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 77, 77, 0.15);
+        }
+
+
+        .personal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .detail-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 77, 77, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+
+        .education-card {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .edu-degree {
+            font-size: 24px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .edu-institution {
+            font-size: 18px;
+            color: #fff;
+        }
+
+        .edu-year {
+            font-size: 14px;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .edu-score {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--secondary-color);
+            border-radius: 20px;
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
+
+        .accordion {
+            margin-top: 20px;
+        }
+
+        .accordion-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .accordion-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .semester-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .semester-table th,
+        .semester-table td {
+            text-align: left;
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .semester-table th {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .semester-table td {
+            color: var(--text-light);
+        }
+
+        .semester-table tr:last-child td {
+            border-bottom: none;
+        }
+
+
+        .dsa-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .platform-card {
+            text-align: center;
+        }
+
+        .platform-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .platform-name {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .profile-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--primary-color);
+            padding-bottom: 2px;
+        }
+
+        .profile-link:hover {
+            color: var(--primary-color);
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="logo">Harsh</div>
+        <nav id="nav">
+            <a href="../index.html" class="nav-link">Portfolio</a>
+            <a href="home.html" class="nav-link">Home</a>
+            <a href="dashboard.html" class="nav-link active">Dashboard</a>
+            <a href="../index.html#about" class="nav-link">About</a>
+            <a href="../index.html#skills" class="nav-link">Skills</a>
+            <a href="../index.html#projects" class="nav-link">Projects</a>
+            <a href="../index.html#contact" class="nav-link">Contact</a>
+        </nav>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <main class="dashboard-container">
+
+
+        <section class="dashboard-section" id="personal">
+            <h2 class="section-title">Personal <span>Details</span></h2>
+            <div class="card personal-grid">
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-user"></i></div>
+                    <div>
+                        <div class="detail-label">Full Name</div>
+                        <div class="detail-value">Harsh </div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="detail-label">Email</div>
+                        <div class="detail-value">harsh@example.com</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <div class="detail-label">Phone</div>
+                        <div class="detail-value">+91 98765 43210</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <div class="detail-label">Location</div>
+                        <div class="detail-value">New Delhi, India</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-birthday-cake"></i></div>
+                    <div>
+                        <div class="detail-label">Date of Birth</div>
+                        <div class="detail-value">January 1, 2003</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="dashboard-section" id="academics">
+            <h2 class="section-title">My <span>Academics</span></h2>
+            <div class="card">
+                <div class="education-card">
+                    <div class="edu-degree">Bachelor of Technology (CSE)</div>
+                    <div class="edu-institution">Indian Institute of Technology, Delhi</div>
+                    <div class="edu-year">2021 - 2025 (Expected)</div>
+                    <div><span class="edu-score">CGPA: 9.2/10.0</span></div>
+
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span class="accordion-title">Semester 1</span>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <table class="semester-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Credits</th>
+                                            <th>Internal (30)</th>
+                                            <th>External (70)</th>
+                                            <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Introduction to Computer Science</td>
+                                            <td>4</td>
+                                            <td>28</td>
+                                            <td>65</td>
+                                            <td>A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Calculus I</td>
+                                            <td>4</td>
+                                            <td>25</td>
+                                            <td>62</td>
+                                            <td>A-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Linear Algebra</td>
+                                            <td>3</td>
+                                            <td>27</td>
+                                            <td>66</td>
+                                            <td>A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Physics I</td>
+                                            <td>4</td>
+                                            <td>24</td>
+                                            <td>58</td>
+                                            <td>B+</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span class="accordion-title">Semester 2</span>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <table class="semester-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Credits</th>
+                                            <th>Internal (30)</th>
+                                            <th>External (70)</th>
+                                            <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Data Structures & Algorithms</td>
+                                            <td>4</td>
+                                            <td>29</td>
+                                            <td>67</td>
+                                            <td>A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Discrete Mathematics</td>
+                                            <td>4</td>
+                                            <td>28</td>
+                                            <td>65</td>
+                                            <td>A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Digital Logic Design</td>
+                                            <td>4</td>
+                                            <td>26</td>
+                                            <td>61</td>
+                                            <td>A-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Environmental Science</td>
+                                            <td>2</td>
+                                            <td>25</td>
+                                            <td>60</td>
+                                            <td>A</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <div class="accordion-header" onclick="toggleAccordion(this)">
+                                <span class="accordion-title">Semester 3</span>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <table class="semester-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subject</th>
+                                            <th>Credits</th>
+                                            <th>Internal (30)</th>
+                                            <th>External (70)</th>
+                                            <th>Grade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Object Oriented Programming</td>
+                                            <td>4</td>
+                                            <td>28</td>
+                                            <td>66</td>
+                                            <td>A</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Computer Architecture</td>
+                                            <td>4</td>
+                                            <td>25</td>
+                                            <td>59</td>
+                                            <td>B+</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Probability & Statistics</td>
+                                            <td>3</td>
+                                            <td>27</td>
+                                            <td>63</td>
+                                            <td>A-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #333; margin: 30px 0;">
+
+                <div class="education-card">
+                    <div class="edu-degree">Senior Secondary (XII)</div>
+                    <div class="edu-institution">Delhi Public School</div>
+                    <div class="edu-year">2021</div>
+                    <div><span class="edu-score">Percentage: 96.4%</span></div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid #333; margin: 30px 0;">
+
+                <div class="education-card">
+                    <div class="edu-degree">Secondary (X)</div>
+                    <div class="edu-institution">Delhi Public School</div>
+                    <div class="edu-year">2019</div>
+                    <div><span class="edu-score">CGPA: 10.0</span></div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="dashboard-section" id="dsa">
+            <h2 class="section-title">DSA <span>Stats</span></h2>
+            <div class="dsa-grid">
+
+
+                <div class="card platform-card">
+                    <div class="platform-icon"><i class="fas fa-code"></i></div>
+                    <h3 class="platform-name">LeetCode</h3>
+                    <div class="stat-box">
+                        <span class="stat-number">450+</span>
+                        <span class="stat-label">Problems Solved</span>
+                    </div>
+                    <p style="color: #aaa; margin-bottom: 10px;">Max Rating: 1850</p>
+                    <a href="https://leetcode.com/" target="_blank" class="profile-link">@harsh_codes</a>
+                </div>
+
+
+                <div class="card platform-card">
+                    <div class="platform-icon"><i class="fas fa-bread-slice"></i></div>
+                    <h3 class="platform-name">CodeChef</h3>
+                    <div class="stat-box">
+                        <span class="stat-number">3★</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
+                    <p style="color: #aaa; margin-bottom: 10px;">Max Rating: 1680</p>
+                    <a href="https://www.codechef.com/" target="_blank" class="profile-link">@harsh_cc</a>
+                </div>
+
+
+                <div class="card platform-card">
+                    <div class="platform-icon"><i class="fab fa-hackerrank"></i></div>
+                    <h3 class="platform-name">HackerRank</h3>
+                    <div class="stat-box">
+                        <span class="stat-number">5★</span>
+                        <span class="stat-label">Problem Solving</span>
+                    </div>
+                    <p style="color: #aaa; margin-bottom: 10px;">Gold Badge in C++</p>
+                    <a href="https://www.hackerrank.com/" target="_blank" class="profile-link">@harsh_hr</a>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="dashboard-section" id="achievements">
+            <h2 class="section-title">My <span>Achievements</span></h2>
+            <div class="card">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-title">Certifications</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-item"
+                                style="border: none; background: rgba(255,255,255,0.02); margin-bottom: 10px;">
+                                <div class="accordion-header" onclick="toggleAccordion(this)"
+                                    style="padding: 12px 15px;">
+                                    <span class="accordion-title" style="font-size: 0.95em;">
+                                        <i class="fas fa-certificate"
+                                            style="color: var(--primary-color); margin-right: 10px;"></i>
+                                        C++ Programming Course
+                                    </span>
+                                    <i class="fas fa-chevron-down accordion-icon" style="font-size: 0.8em;"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <div style="padding: 20px; text-align: center;">
+
+                                        <div>
+                                            <a href="https://www.codechef.com/" target="_blank" class="project-link"
+                                                style="justify-content: center;">View Credential <i
+                                                    class="fas fa-external-link-alt"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item"
+                                style="border: none; background: rgba(255,255,255,0.02); margin-bottom: 10px;">
+                                <div class="accordion-header" onclick="toggleAccordion(this)"
+                                    style="padding: 12px 15px;">
+                                    <span class="accordion-title" style="font-size: 0.95em;">
+                                        <i class="fas fa-certificate"
+                                            style="color: var(--primary-color); margin-right: 10px;"></i>
+                                        Java Masterclass
+                                    </span>
+                                    <i class="fas fa-chevron-down accordion-icon" style="font-size: 0.8em;"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <div style="padding: 20px; text-align: center;">
+
+                                        <div>
+                                            <a href="https://www.codechef.com/" target="_blank" class="project-link"
+                                                style="justify-content: center;">View Credential <i
+                                                    class="fas fa-external-link-alt"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item" style="border: none; background: rgba(255,255,255,0.02);">
+                                <div class="accordion-header" onclick="toggleAccordion(this)"
+                                    style="padding: 12px 15px;">
+                                    <span class="accordion-title" style="font-size: 0.95em;">
+                                        <i class="fas fa-certificate"
+                                            style="color: var(--primary-color); margin-right: 10px;"></i>
+                                        Full Stack Web Development
+                                    </span>
+                                    <i class="fas fa-chevron-down accordion-icon" style="font-size: 0.8em;"></i>
+                                </div>
+                                <div class="accordion-content">
+                                    <div style="padding: 20px; text-align: center;">
+
+                                        <div>
+                                            <a href="https://www.codechef.com/" target="_blank" class="project-link"
+                                                style="justify-content: center;">View Credential <i
+                                                    class="fas fa-external-link-alt"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <span class="accordion-title">Hackathons</span>
+                            <i class="fas fa-chevron-down accordion-icon"></i>
+                        </div>
+                        <div class="accordion-content">
+                            <div style="padding: 20px; text-align: center; color: var(--text-light);">
+                                No hackathon participation added yet.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2025 Harsh | All Rights Reserved | Built by Harsh using HTML, CSS & JavaScript</p>
+    </footer>
+
+
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

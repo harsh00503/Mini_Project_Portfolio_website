@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .home-container {
+            width: 100%;
+            margin: 0;
+            padding: 40px 20px;
+            min-height: 85vh;
+            display: block;
+            padding-top: 60px;
+            box-sizing: border-box;
+        }
+
+        .profile-card {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 30px;
+            width: 100%;
+            max-width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .details-section {
+            flex: 1.2;
+        }
+
+        .details-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .details-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .detail-row {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 10px;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-key {
+            min-width: 180px;
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 18px;
+        }
+
+        .detail-val {
+            font-size: 22px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .profile-section {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-img-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+        }
+
+        .profile-img-container::before {
+            content: '';
+            position: absolute;
+            inset: -15px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0.3;
+            animation: pulse-glow 3s infinite;
+            z-index: -1;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.5s;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .profile-card {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 40px;
+                padding: 40px 20px;
+            }
+
+            .details-section {
+                width: 100%;
+            }
+
+            .detail-row {
+                justify-content: center;
+                flex-wrap: wrap;
+                border: none;
+            }
+
+            .details-title::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .profile-img-container {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="header">
+        <div class="logo">Harsh</div>
+        <nav id="nav">
+            <a href="../index.html" class="nav-link">Portfolio</a>
+            <a href="home.html" class="nav-link active">Home</a>
+            <a href="dashboard.html" class="nav-link">Dashboard</a>
+            <a href="../index.html#about" class="nav-link">About</a>
+            <a href="../index.html#skills" class="nav-link">Skills</a>
+            <a href="../index.html#projects" class="nav-link">Projects</a>
+            <a href="../index.html#contact" class="nav-link">Contact</a>
+        </nav>
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </header>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <main class="home-container">
+        <div class="profile-card">
+            <section class="details-section">
+                <h2 class="details-title">Student Details</h2>
+
+                <div class="detail-row">
+                    <span class="detail-key">Name:</span>
+                    <span class="detail-val">Harsh</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-key">Current Semester:</span>
+                    <span class="detail-val">7th Semester</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-key">University Roll No:</span>
+                    <span class="detail-val">2100XXXX</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-key">Branch & Section:</span>
+                    <span class="detail-val">CSE 17</span>
+                </div>
+            </section>
+
+            <section class="profile-section">
+                <div class="profile-img-container">
+                    <img src="profile-img.jpg" alt="Harsh Profile" class="profile-img">
+                </div>
+            </section>
+        </div>
+
+        <div class="profile-card attendance-card" style="margin-top: 30px; animation-delay: 0.2s;">
+            <section class="details-section">
+                <h2 class="details-title">Attendance Stats</h2>
+
+                <div class="detail-row">
+                    <span class="detail-key">Total Classes:</span>
+                    <span class="detail-val">120</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-key">Classes Attended:</span>
+                    <span class="detail-val">102</span>
+                </div>
+
+                <div class="detail-row">
+                    <span class="detail-key">Overall Percentage:</span>
+                    <span class="detail-val" style="color: var(--secondary-color);">85%</span>
+                </div>
+
+                <div style="margin-top: 20px; font-size: 14px; color: var(--text-light);">
+                    <p>Attendance is calculated based on the current semester's record.</p>
+                </div>
+            </section>
+
+            <section class="profile-section" style="flex: 1.5;">
+                <div style="width: 100%; height: 300px;">
+                    <canvas id="attendanceChart"></canvas>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Harsh | All Rights Reserved | Built by Harsh using HTML, CSS & JavaScript</p>
+    </footer>
+
+    <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">↑</a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('attendanceChart').getContext('2d');
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(0, 212, 255, 0.5)');
+            gradient.addColorStop(1, 'rgba(0, 212, 255, 0)');
+
+            const attendanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Attendance %',
+                        data: [75, 82, 88, 85, 90],
+                        borderColor: '#00d4ff',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#00d4ff',
+                        pointHoverBackgroundColor: '#00d4ff',
+                        pointHoverBorderColor: '#fff',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(13, 13, 13, 0.9)',
+                            titleColor: '#fff',
+                            bodyColor: '#ccc',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            padding: 10,
+                            displayColors: false,
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.05)'
+                            },
+                            ticks: {
+                                color: '#aaa'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: '#aaa'
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
